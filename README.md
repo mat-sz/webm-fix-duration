@@ -1,6 +1,17 @@
-# webm-fix-duration
+<h1 align="center">webm-fix-duration</h1>
 
+<p align="center">
 A fork of [fix-webm-duration](https://github.com/yusitnikov/fix-webm-duration), adding TypeScript and Promise support.
+</p>
+
+<p align="center">
+<img alt="workflow" src="https://img.shields.io/github/workflow/status/mat-sz/webm-fix-duration/Node.js%20CI%20(yarn)">
+<a href="https://npmjs.com/package/webm-fix-duration">
+<img alt="npm" src="https://img.shields.io/npm/v/webm-fix-duration">
+<img alt="npm" src="https://img.shields.io/npm/dw/webm-fix-duration">
+<img alt="NPM" src="https://img.shields.io/npm/l/webm-fix-duration">
+</a>
+</p>
 
 `navigator.mediaDevices.getUserMedia` + `MediaRecorder` create WEBM files without duration metadata.
 

@@ -6,3 +6,4 @@ yarn.lock
 .prettierrc
 .github
 .eslintrc.json
+tsconfig.json

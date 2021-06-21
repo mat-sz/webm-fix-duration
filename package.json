@@ -24,15 +24,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yusitnikov/fix-webm-duration.git"
+    "url": "git+https://github.com/mat-sz/webm-fix-duration.git"
   },
   "keywords": [],
   "author": "Yuri Sitnikov <https://github.com/yusitnikov>",
+  "contributors": [
+    "Mat Sz <contact@matsz.dev>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yusitnikov/fix-webm-duration/issues"
+    "url": "https://github.com/mat-sz/webm-fix-duration/issues"
   },
-  "homepage": "https://github.com/yusitnikov/fix-webm-duration",
+  "homepage": "https://github.com/mat-sz/webm-fix-duration",
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "husky": "^6.0.0",
