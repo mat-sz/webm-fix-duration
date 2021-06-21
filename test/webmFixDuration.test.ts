@@ -30,8 +30,8 @@ describe('webm-fix-duration', () => {
     const blobA = new Blob([new Uint8Array(testInput)]);
     const blobB = new Blob([new Uint8Array(testInput)]);
 
-    const outA = await webmFixDuration(blobA, 1);
-    const outB = await promiseFixWebmDuration(blobB, 1);
+    const outA = await webmFixDuration(blobA, 1000);
+    const outB = await promiseFixWebmDuration(blobB, 1000);
 
     const abA = await readBlob(outA);
     const abB = await readBlob(outB);

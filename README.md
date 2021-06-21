@@ -8,44 +8,46 @@ This library appends missing metadata section right to the file blob.
 
 ## Usage
 
-The library contains only one script `fix-webm-duration.js` and has no dependencies.
+The library exports a `webmFixDuration` function of the following signature:
 
-Syntax:
-
-```javascript
-ysFixWebmDuration(blob, duration, callback);
+```ts
+function webmFixDuration(
+  blob: Blob,
+  duration: number,
+  type = 'video/webm'
+): Promise<Blob>;
 ```
 
-where
+with:
 
-- `blob` is `Blob` object with file contents from `MediaRecorder`
-- `duration` is video duration in milliseconds (you should calculate it while recording the video)
-- `callback` is callback function that will receive fixed blob
+- `blob: Blob` being the output from MediaRecorder,
+- `duration: number` being duration in **milliseconds**,
 
-`ysFixWebmDuration` will parse and fix your file asynchronously and will call your callback once the result is ready.
+and returning a Promise, which will be resolved with a Blob object with fixed duration.
 
-If the original blob already contains duration metadata section and the duration value is not empty, the callback will receive it without any changes made.
+If duration is already present, the function will return an unmodified Blob.
 
-Example:
+## Example
 
-```javascript
-var mediaRecorder;
-var mediaParts;
-var startTime;
+```ts
+import { webmFixDuration } from 'webm-fix-duration';
 
-function startRecording(stream, options) {
+let mediaRecorder: MediaRecorder | undefined;
+let mediaParts: Blob = [];
+let startTime: number = 0;
+
+function startRecording(stream: MediaStream, options: any) {
   mediaParts = [];
   mediaRecorder = new MediaRecorder(stream, options);
-  mediaRecorder.onstop = function () {
-    var duration = Date.now() - startTime;
-    var buggyBlob = new Blob(mediaParts, { type: "video/webm" });
+  mediaRecorder.onstop = async () => {
+    const duration = Date.now() - startTime;
+    const buggyBlob = new Blob(mediaParts, { type: 'video/webm' });
 
-    ysFixWebmDuration(buggyBlob, duration, function (fixedBlob) {
-      displayResult(fixedBlob);
-    });
+    const fixedBlob = await webmFixDuration(buggyBlob, duration);
+    displayResult(fixedBlob);
   };
-  mediaRecorder.ondataavailable = function (event) {
-    var data = event.data;
+  mediaRecorder.ondataavailable = event => {
+    const data = event.data;
     if (data && data.size > 0) {
       mediaParts.push(data);
     }
@@ -58,9 +60,9 @@ function stopRecording() {
   mediaRecorder.stop();
 }
 
-function displayResult(blob) {
+function displayResult(blob: Blob) {
   // ...
 }
 ```
 
-Note: this example **is not** a `MediaRecorder` usage guide.
+**Note:** this example **is not** a `MediaRecorder` usage guide.

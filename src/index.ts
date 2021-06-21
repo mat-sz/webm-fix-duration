@@ -496,6 +496,13 @@ class WebmFile extends WebmContainer {
   }
 }
 
+/**
+ * Fixes duration on MediaRecorder output.
+ * @param blob Input Blob with incorrect duration.
+ * @param duration Correct duration (in milliseconds).
+ * @param type Output blob mimetype (default: video/webm).
+ * @returns
+ */
 export const webmFixDuration = (
   blob: Blob,
   duration: number,
@@ -511,11 +518,12 @@ export const webmFixDuration = (
           const file = new WebmFile(new Uint8Array(result));
           if (file.fixDuration(duration)) {
             resolve(file.toBlob(type));
+          } else {
+            resolve(blob);
           }
         } catch (ex) {
           reject(ex);
         }
-        reject();
       });
 
       reader.addEventListener('error', () => reject());
