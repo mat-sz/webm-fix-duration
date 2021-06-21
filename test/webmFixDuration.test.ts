@@ -1,5 +1,5 @@
 import { testInput } from './testInput';
-import webmFixDuration from '../src/fix-webm-duration';
+import { webmFixDuration } from '../src';
 
 // @ts-ignore
 const fixWebmDuration = require('./old');
@@ -14,7 +14,10 @@ function readBlob(blob: Blob): Promise<ArrayBuffer> {
   });
 }
 
-const promiseFixWebmDuration = (blob: Blob, duration: number) => {
+const promiseFixWebmDuration = (
+  blob: Blob,
+  duration: number
+): Promise<Blob> => {
   return new Promise<Blob>((resolve, reject) => {
     fixWebmDuration(blob, duration, (blob: Blob) => resolve(blob));
   });
@@ -27,8 +30,8 @@ describe('webm-fix-duration', () => {
     const blobA = new Blob([new Uint8Array(testInput)]);
     const blobB = new Blob([new Uint8Array(testInput)]);
 
-    const outA = (await webmFixDuration(blobA, 1)) as Blob;
-    const outB = (await promiseFixWebmDuration(blobB, 1)) as Blob;
+    const outA = await webmFixDuration(blobA, 1);
+    const outB = await promiseFixWebmDuration(blobB, 1);
 
     const abA = await readBlob(outA);
     const abB = await readBlob(outB);

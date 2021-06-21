@@ -496,7 +496,10 @@ class WebmFile extends WebmContainer {
   }
 }
 
-export default function (blob: Blob, duration: number): Promise<Blob> {
+export const webmFixDuration = (
+  blob: Blob,
+  duration: number
+): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     try {
       const reader = new FileReader();
@@ -521,4 +524,4 @@ export default function (blob: Blob, duration: number): Promise<Blob> {
       reject(ex);
     }
   });
-}
+};
