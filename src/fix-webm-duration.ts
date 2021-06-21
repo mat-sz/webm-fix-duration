@@ -496,7 +496,7 @@ class WebmFile extends WebmContainer {
   }
 }
 
-export default function (blob: Blob, duration: number) {
+export default function (blob: Blob, duration: number): Promise<Blob> {
   return new Promise((resolve, reject) => {
     try {
       const reader = new FileReader();
@@ -506,12 +506,12 @@ export default function (blob: Blob, duration: number) {
           const result = reader.result as ArrayBuffer;
           const file = new WebmFile(new Uint8Array(result));
           if (file.fixDuration(duration)) {
-            blob = file.toBlob();
+            resolve(file.toBlob());
           }
         } catch (ex) {
           reject(ex);
         }
-        resolve(blob);
+        reject();
       });
 
       reader.addEventListener('error', () => reject());
