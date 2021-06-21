@@ -1,5 +1,5 @@
 src
-__tests__
+test
 jest.config.js
 yarn-error.log
 yarn.lock
