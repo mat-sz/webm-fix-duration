@@ -491,14 +491,15 @@ class WebmFile extends WebmContainer {
     return true;
   }
 
-  toBlob() {
-    return new Blob([this.source!.buffer], { type: 'video/webm' });
+  toBlob(type = 'video/webm') {
+    return new Blob([this.source!.buffer], { type });
   }
 }
 
 export const webmFixDuration = (
   blob: Blob,
-  duration: number
+  duration: number,
+  type = 'video/webm'
 ): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     try {
@@ -509,7 +510,7 @@ export const webmFixDuration = (
           const result = reader.result as ArrayBuffer;
           const file = new WebmFile(new Uint8Array(result));
           if (file.fixDuration(duration)) {
-            resolve(file.toBlob());
+            resolve(file.toBlob(type));
           }
         } catch (ex) {
           reject(ex);
