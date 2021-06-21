@@ -1,4 +1,6 @@
-# fix-webm-duration
+# webm-fix-duration
+
+A fork of [fix-webm-duration](https://github.com/yusitnikov/fix-webm-duration), adding TypeScript and Promise support.
 
 `navigator.mediaDevices.getUserMedia` + `MediaRecorder` create WEBM files without duration metadata.
 
@@ -15,6 +17,7 @@ ysFixWebmDuration(blob, duration, callback);
 ```
 
 where
+
 - `blob` is `Blob` object with file contents from `MediaRecorder`
 - `duration` is video duration in milliseconds (you should calculate it while recording the video)
 - `callback` is callback function that will receive fixed blob
@@ -31,32 +34,32 @@ var mediaParts;
 var startTime;
 
 function startRecording(stream, options) {
-    mediaParts = [];
-    mediaRecorder = new MediaRecorder(stream, options);
-    mediaRecorder.onstop = function() {
-        var duration = Date.now() - startTime;
-        var buggyBlob = new Blob(mediaParts, { type: 'video/webm' });
-        
-        ysFixWebmDuration(buggyBlob, duration, function(fixedBlob) {
-            displayResult(fixedBlob);
-        });
-    };
-    mediaRecorder.ondataavailable = function(event) {
-        var data = event.data;
-        if (data && data.size > 0) {
-            mediaParts.push(data);
-        }
-    };
-    mediaRecorder.start();
-    startTime = Date.now();
+  mediaParts = [];
+  mediaRecorder = new MediaRecorder(stream, options);
+  mediaRecorder.onstop = function () {
+    var duration = Date.now() - startTime;
+    var buggyBlob = new Blob(mediaParts, { type: "video/webm" });
+
+    ysFixWebmDuration(buggyBlob, duration, function (fixedBlob) {
+      displayResult(fixedBlob);
+    });
+  };
+  mediaRecorder.ondataavailable = function (event) {
+    var data = event.data;
+    if (data && data.size > 0) {
+      mediaParts.push(data);
+    }
+  };
+  mediaRecorder.start();
+  startTime = Date.now();
 }
 
 function stopRecording() {
-    mediaRecorder.stop();
+  mediaRecorder.stop();
 }
 
 function displayResult(blob) {
-    // ...
+  // ...
 }
 ```
 
