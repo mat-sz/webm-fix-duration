@@ -1,6 +1,6 @@
 {
   "name": "webm-fix-duration",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "navigator.mediaDevices.getUserMedia + MediaRecorder create WEBM files without duration metadata. This library appends missing metadata section right to the file blob.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
