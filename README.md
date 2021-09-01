@@ -1,7 +1,7 @@
 <h1 align="center">webm-fix-duration</h1>
 
 <p align="center">
-A fork of [fix-webm-duration](https://github.com/yusitnikov/fix-webm-duration), adding TypeScript and Promise support.
+A fork of <a href="https://github.com/yusitnikov/fix-webm-duration">fix-webm-duration</a>, adding TypeScript and Promise support.
 </p>
 
 <p align="center">
